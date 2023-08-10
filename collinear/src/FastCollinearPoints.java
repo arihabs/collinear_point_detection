@@ -1,10 +1,7 @@
 import edu.princeton.cs.algs4.StdDraw;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
-
-import java.util.LinkedList;
 import java.util.Stack;
-import java.util.Queue;
 import java.util.Arrays;
 
 public class FastCollinearPoints{
@@ -83,7 +80,7 @@ public class FastCollinearPoints{
         return this.segmentsAll;
     }
 
-    private static void insertionSort(Comparable[] a){
+/*    private static void insertionSort(Comparable[] a){
         int N = a.length;
         for(int i = 0; i < N; i++){
             for (int j = i; j > 0; j--){
@@ -103,7 +100,7 @@ public class FastCollinearPoints{
         Comparable swap = a[i];
         a[i] = a[j];
         a[j] = swap;
-    }
+    }*/
 
     public static void main(String[] args){
         // read the n points from a file

@@ -1,10 +1,9 @@
 import edu.princeton.cs.algs4.StdDraw;
-import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 import java.util.Stack;
 import java.util.Arrays;
-import java.lang.reflect.Array;
+
 
 // finds all line segments containing 4 points
 public class BruteCollinearPoints{
@@ -85,7 +84,7 @@ public class BruteCollinearPoints{
 
     private LineSegment[] segmentsAll;
 
-    private static void insertionSort(Comparable[] a){
+/*    private static void insertionSort(Comparable[] a){
         int N = a.length;
         for(int i = 0; i < N; i++){
             for (int j = i; j > 0; j--){
@@ -105,7 +104,7 @@ public class BruteCollinearPoints{
         Comparable swap = a[i];
         a[i] = a[j];
         a[j] = swap;
-    }
+    }*/
 
 //    private static boolean isUnique(Comparable[] a, int i){
 //        if(i < 1)
