@@ -62,9 +62,9 @@ public class BruteCollinearPoints{
         }
 
         this.nSegments = nSegmentCnt;
+        this.segmentsAll = new LineSegment[nSegmentCnt];
 
         if(nSegmentCnt > 0){
-            this.segmentsAll = new LineSegment[nSegmentCnt];
             for(int i = 0; i < nSegmentCnt; i++)
                 this.segmentsAll[i] = segStack.pop();
         }

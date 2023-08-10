@@ -61,11 +61,13 @@ public class FastCollinearPoints{
 
         this.nSegments = nSegmentCnt;
 
-        if(nSegmentCnt > 0){
-            this.segmentsAll = new LineSegment[nSegmentCnt];
-            for(int i = 0; i < nSegmentCnt; i++)
+//        if(nSegmentCnt > 0){
+        this.segmentsAll = new LineSegment[nSegmentCnt];
+        if(nSegmentCnt > 0) {
+            for (int i = 0; i < nSegmentCnt; i++)
                 this.segmentsAll[i] = segStack.pop();
         }
+//        }
 
         // Stack should be empty
         assert segStack.empty();
