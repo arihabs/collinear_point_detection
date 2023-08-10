@@ -8,8 +8,12 @@
  *
  ******************************************************************************/
 
+import java.util.Arrays;
 import java.util.Comparator;
+
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
+import edu.princeton.cs.algs4.StdOut;
 
 public class Point implements Comparable<Point> {
 
@@ -105,15 +109,22 @@ public class Point implements Comparable<Point> {
      *
      * @return the Comparator that defines this ordering on points
      */
-   /* public Comparator<Point> slopeOrder() {
-        *//* YOUR CODE HERE *//*
+    public Comparator<Point> slopeOrder() {
+        Comparator<Point> BY_SLOPE = new BySlope();
+        return BY_SLOPE;
     }
 
-    private static class SlopeOrder implements Comparator<Point>{
-        public int compare(Point v, Point w, Point z){
-            return v.slopeTo(z) - w.slopeTo(z);
+    private class BySlope implements Comparator<Point>{
+        public int compare(Point v, Point w){
+//            double slopeV = Point.this.slopeTo(v);
+            double slopeV = slopeTo(v);
+//            double slopeW = Point.this.slopeTo(w);
+            double slopeW = slopeTo(w);
+            if(slopeV < slopeW) return -1;
+            if(slopeV > slopeW) return +1;
+            return 0;
         }
-    }*/
+    }
 
 
     /**
@@ -132,6 +143,32 @@ public class Point implements Comparable<Point> {
      * Unit tests the Point data type.
      */
     public static void main(String[] args) {
-        /* YOUR CODE HERE */
+        // read the n points from a file
+        if(args == null)
+            throw new IllegalArgumentException("Null input non allowed.");
+        In in = new In(args[0]);
+        int n = in.readInt();
+        Point[] points = new Point[n];
+
+        for(int i = 0; i < n; i++){
+            int x = in.readInt();
+            int y = in.readInt();
+            points[i] = new Point(x,y);
+            StdOut.print(points[i] + ", ");
+            // Check if arguments are legal
+        }
+
+        Arrays.sort(points, points[0].slopeOrder());
+
+        // Test slope comparisons
+//        double test =  Double.NEGATIVE_INFINITY - Double.NEGATIVE_INFINITY;
+//        StdOut.println(test==0);
+//        StdOut.println(test<0);
+//        test =  Double.POSITIVE_INFINITY - Double.POSITIVE_INFINITY;
+//        StdOut.println(test==0);
+//        StdOut.println(test<0);
+//        test = 9.8 - 9.8;
+//        StdOut.println(test==0);
+//        StdOut.println(Double.POSITIVE_INFINITY< Double.POSITIVE_INFINITY);
     }
 }
