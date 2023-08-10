@@ -3,7 +3,7 @@ import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 import java.util.Stack;
-
+import java.util.Arrays;
 import java.lang.reflect.Array;
 
 // finds all line segments containing 4 points
@@ -19,7 +19,8 @@ public class BruteCollinearPoints{
             if(p==null)
                 throw new IllegalArgumentException("point array contains null.");
         //  Sort array. This will be useful for compare neighboring points for equality as well as selecting the 2 farthest points when creating the line segment.
-        insertionSort(points);
+//        insertionSort(points);
+        Arrays.sort(points);
         // Check for repeated points.
         for(int i = 1; i < points.length; i++)
             if(points[i].compareTo(points[i-1])==0)
