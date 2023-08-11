@@ -24,6 +24,10 @@ public class FastCollinearPoints{
         // Sort array by their coordinates followed by stable sort of their slopes
 //        insertionSort(points);
         Arrays.sort(points);
+        // Check for repeated points.
+        for(int i = 1; i < points.length; i++)
+            if(points[i].compareTo(points[i-1])==0)
+                throw new IllegalArgumentException("array contains a repeated point.");
 
         int nSegmentCnt = 0;
         Stack<LineSegment> segStack = new Stack<LineSegment>();
