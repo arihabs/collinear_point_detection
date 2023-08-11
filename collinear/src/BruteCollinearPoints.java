@@ -146,5 +146,7 @@ public class BruteCollinearPoints{
         }
         else
             StdOut.println("No segments detected!");
+
+        StdOut.println("# Segments detected: " + collinear.numberOfSegments());
     }
 }

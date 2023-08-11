@@ -20,6 +20,7 @@ public class FastCollinearPoints{
             if (p == null)
                 throw new IllegalArgumentException("point array contains null.");
 
+        int nPoints = points.length;
         // Sort array by their coordinates followed by stable sort of their slopes
 //        insertionSort(points);
         Arrays.sort(points);
@@ -28,16 +29,25 @@ public class FastCollinearPoints{
         Stack<LineSegment> segStack = new Stack<LineSegment>();
         if (points.length >= 4){
             // The sort by slopes is point dependant, so for each point we resort the array.
-            for (Point p : points) {
-                // p should be the first element in array since it should have a slope of negative infinity
-                Arrays.sort(points, p.slopeOrder());
+//            for (Point p : points) {
+            for (int iP = 0; iP < nPoints-1; iP++){
+                Point p = points[iP];
+                Point[] pointsTmp = Arrays.copyOfRange(points,iP+1,points.length);
+//                Point[] pointsTmp = new Point[nPoints];
 
-                double prevSlope = p.slopeTo(points[1]);
-                // Use a FIFO to keep track of previous slopes
-//                Queue<Double> queue = new LinkedList<Double>();
+//                for (int iP = 0; iP < nPoints; iP++)
+//                    pointsTmp[iP] = points[iP];
+                // p should be the first element in array since it should have a slope of negative infinity
+                Arrays.sort(pointsTmp, p.slopeOrder());
+//                Arrays.sort(points, p.slopeOrder());
+
+                double prevSlope = p.slopeTo(pointsTmp[0]);
+//                double prevSlope = p.slopeTo(points[1]);
                 int slopeCnt = 0; // if slopeCnt == 2 then all 4 points are collinear
-                for (int i = 2; i < points.length; i++){
-                    double currentSlope = p.slopeTo(points[i]);
+//                for (int i = 1; i < points.length; i++){
+                for (int i = 1; i < pointsTmp.length; i++){
+//                    double currentSlope = p.slopeTo(points[i]);
+                    double currentSlope = p.slopeTo(pointsTmp[i]);
                     if(currentSlope == prevSlope)
                         slopeCnt++;
                     else
@@ -46,17 +56,19 @@ public class FastCollinearPoints{
                     prevSlope = currentSlope;
 
                     if(slopeCnt==2){
-                        LineSegment ls = new LineSegment(p,points[i]);
+//                        LineSegment ls = new LineSegment(p,points[i]);
+                        LineSegment ls = new LineSegment(p,pointsTmp[i]);
                         segStack.push(ls);
                         nSegmentCnt++;
                     }
                     else if (slopeCnt > 2) {
                         segStack.pop();
-                        LineSegment ls = new LineSegment(p,points[i]);
+//                        LineSegment ls = new LineSegment(p,points[i]);
+                        LineSegment ls = new LineSegment(p,pointsTmp[i]);
                         segStack.push(ls);
                     }
                 }
-            }
+            }//iP
         }
 
         this.nSegments = nSegmentCnt;
@@ -105,6 +117,7 @@ public class FastCollinearPoints{
     }*/
 
     public static void main(String[] args){
+        boolean DEBUG = false;
         // read the n points from a file
         if(args == null)
             throw new IllegalArgumentException("Null input non allowed.");
@@ -119,22 +132,28 @@ public class FastCollinearPoints{
             // Check if arguments are legal
         }
 
-        StdDraw.enableDoubleBuffering();
-        StdDraw.setXscale(0,32768);
-        StdDraw.setYscale(0,32768);
-        for(Point p : points){
-            p.draw();
+        if(!DEBUG) {
+            StdDraw.enableDoubleBuffering();
+            StdDraw.setXscale(0, 32768);
+            StdDraw.setYscale(0, 32768);
+            for (Point p : points) {
+                p.draw();
+            }
+            StdDraw.show();
         }
-        StdDraw.show();
+        FastCollinearPoints collinear = new FastCollinearPoints(points);
 
-        BruteCollinearPoints collinear = new BruteCollinearPoints(points);
-
+        StdOut.println("# Segments detected: " + collinear.numberOfSegments());
         if(collinear.numberOfSegments() > 0) {
             for (LineSegment segment : collinear.segments()) {
                 StdOut.println(segment);
-                segment.draw();
+                if(!DEBUG) {
+                    segment.draw();
+                }
             }
-            StdDraw.show();
+            if(!DEBUG) {
+                StdDraw.show();
+            }
         }
         else
             StdOut.println("No segments detected!");
