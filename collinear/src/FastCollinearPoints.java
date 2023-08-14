@@ -95,7 +95,8 @@ public class FastCollinearPoints{
     
     // the line segments
     public LineSegment[] segments(){
-        return this.segmentsAll;
+        return Arrays.copyOf(this.segmentsAll,this.segmentsAll.length);
+//        return this.segmentsAll;
     }
 
 /*    private static void insertionSort(Comparable[] a){
